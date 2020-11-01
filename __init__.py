@@ -11,101 +11,69 @@ import sys
 import operator
 import os
 
-files = ["info.txt", "ML.txt", "ANS.txt"]
+files = ["info.txt", "ML.txt"]
 
 
 """____________________________FUNCTIONS______________________________"""
 
 def get_file_name():
-   
-    while True:
     
-        try:
+    while True:
+        
+        try: 
+             
+            print("Files available:\n ")
+            for ele in files: print(ele)
+            
+            print("\n") 
+            _file = input("Type de file name: ")
+            print("\n") 
+            
+            for item_file in files: 
                 
-                print("Files available:\n ")
-                for ele in files: print(ele)
-                
-                print("\n") 
-                _file = input("Type de file name: ")
-                print("\n") 
-                
-                
-                for item_file in files: 
-                    if item_file == _file: 
-                        if os.stat(item_file).st_size != 0:
-                            return item_file
-                
-                print("File Unknown or empty, try again...")
-                print("\n")
+                if item_file == _file:
+                     
+                    if os.stat(item_file).st_size != 0: return item_file
+            
+            print("File Unknown or empty, try again...\n")
                       
         except:
+            
             print("File Unknown, try again...")
         
         
     
 def read_file(file):
-   #Returns a list
+    
    while True:
+       
         try:
-            list_words = []
-            with open(file) as my_file:
             
+            list_words = []
+            list_counter = []
+            
+            with open(file) as my_file:
                 
                 for line in my_file:
                     
                     words = regex.findall(r"\S+", line)
-                    list_words += words 
-    
-                return list_words
-                        
+                    list_words += words
+                    
+                for item in list_words:
+                    
+                    list_counter.append(list_words.count(item))
+                    
+            dict_words = dict(list(zip(list_words, list_counter)))  
+            words_sort = dict(sorted(dict_words.items(), key = operator.itemgetter(1), reverse = True))
+            
+            return words_sort
+          
         except:
+            
             sys.exit("Error: This file can't be reader.") 
-        
-
-
-def counter_words(_list):
-    
-    list_counter = []
-    
-    while True:
-        try:
-            
-            if len(_list) > 0:
-                
-                for item in _list:
-                    
-                    list_counter.append(_list.count(item))
-                    
-            else:
-                print("This file is empty, try with other one")
-                print("\n")
-                
-                
-        except:
-            print("This file is empty")
-            
-        else:
-            return dict(list(zip(_list, list_counter)))
-        
-        
-
-def dict_sort(dictionary):
-    
-    # print (dict(sorted(dictionary.items())))
-    
-    words_sort = dict(sorted(dictionary.items(), key = operator.itemgetter(1), reverse = True))
-    print("\n")
-    return words_sort
-    
-
-def print_list(_list):
-    print (_list)
 
 
 """___________________________START__________________________________"""
 
 file_name = get_file_name()  
-list_words = read_file(file_name)
-_dictionary = counter_words(list_words)
-new_words_sort =dict_sort(_dictionary)
-print_list(new_words_sort)
+print(read_file(file_name))
