@@ -22,11 +22,11 @@ def get_file_name():
         
         try: 
              
-            print("Files available:\n ")
+            print("Available files:\n ")
             for ele in files: print(ele)
             
             print("\n") 
-            _file = input("Type de file name: ")
+            _file = input("Type file name: ")
             print("\n") 
             
             for item_file in files: 
@@ -35,11 +35,11 @@ def get_file_name():
                      
                     if os.stat(item_file).st_size != 0: return item_file
             
-            print("File Unknown or empty, try again...\n")
+            print("Unknown or empty file, try again...\n")
                       
         except:
             
-            print("File Unknown, try again...")
+            print("Unknown or empty file, try again...\n")
         
         
     
@@ -68,7 +68,7 @@ def read_file(file):
           
         except:
             
-            sys.exit("Error: This file can't be reader.") 
+            sys.exit("Error: This file cannot be read.") 
 
 
 """___________________________START__________________________________"""
