@@ -59,9 +59,7 @@ def read_file(file):
                     words = regex.findall(r"\S+", line)
                     list_words += words
                     
-                for item in list_words:
-                    
-                    list_counter.append(list_words.count(item))
+                list_counter = list(map(lambda item : list_words.count(item), list_words))
                     
             dict_words = dict(list(zip(list_words, list_counter)))  
             words_sort = dict(sorted(dict_words.items(), key = operator.itemgetter(1), reverse = True))
